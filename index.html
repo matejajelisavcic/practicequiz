@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+        .quiz-container { background: #fff; padding: 24px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .question { margin-bottom: 20px; }
+        .question-title { font-weight: bold; margin-bottom: 8px; }
+        .answer-input { width: 100%; padding: 8px; font-size: 1em; }
+        .submit-btn { background: #0078d7; color: #fff; border: none; padding: 12px 24px; border-radius: 4px; font-size: 1em; cursor: pointer; margin-top: 16px; }
+        .submit-btn:disabled { background: #aaa; }
+        .result { margin-top: 24px; font-size: 1.1em; }
+        .solution { color: #0078d7; margin-top: 4px; }
+        .correct { color: green; }
+        .incorrect { color: red; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <form id="quiz-form">
+                                    <div class="question" id="question-0">
+                                            <div class="question-title">1. What is the slope of the line shown below?</div>
+                                            <canvas id="line-graph" width="320" height="200" style="display:block;margin:16px 0;"></canvas>
+                                            <div>
+                                                <label><input type="radio" name="answer-0" value="positive" required> positive</label><br>
+                                                <label><input type="radio" name="answer-0" value="negative"> negative</label><br>
+                                                <label><input type="radio" name="answer-0" value="zero"> zero</label><br>
+                                                <label><input type="radio" name="answer-0" value="undefined"> undefined</label>
+                                            </div>
+                                    </div>
+                                    <div class="question" id="question-1">
+                                            <div class="question-title">2. What is the slope of the line shown below?</div>
+                                            <canvas id="line-graph-1" width="320" height="200" style="display:block;margin:16px 0;"></canvas>
+                                            <div>
+                                                <label><input type="radio" name="answer-1" value="positive" required> positive</label><br>
+                                                <label><input type="radio" name="answer-1" value="negative"> negative</label><br>
+                                                <label><input type="radio" name="answer-1" value="zero"> zero</label><br>
+                                                <label><input type="radio" name="answer-1" value="undefined"> undefined</label>
+                                            </div>
+                                    </div>
+            <button class="submit-btn" type="submit">Submit Quiz</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+            <script src="quiz.js"></script>
+            <script>
+                // Draw y = 2x + 5 on the first canvas
+                const canvas0 = document.getElementById('line-graph');
+                if (canvas0) {
+                    const ctx = canvas0.getContext('2d');
+                    ctx.clearRect(0, 0, canvas0.width, canvas0.height);
+                    // Draw axes
+                    ctx.strokeStyle = '#888';
+                    ctx.beginPath();
+                    ctx.moveTo(40, 180); ctx.lineTo(40, 20); // y-axis
+                    ctx.moveTo(20, 160); ctx.lineTo(300, 160); // x-axis
+                    ctx.stroke();
+                    // Draw line y = 2x + 5
+                    ctx.strokeStyle = '#0078d7';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    for (let px = 0; px <= 260; px += 1) {
+                        let x = (px - 130) / 13;
+                        let y = 2 * x + 5;
+                        let py = 160 - y * 13;
+                        if (px === 0) ctx.moveTo(40 + px, py);
+                        else ctx.lineTo(40 + px, py);
+                    }
+                    ctx.stroke();
+                }
+                // Draw x = 5 on the second canvas
+                const canvas1 = document.getElementById('line-graph-1');
+                if (canvas1) {
+                    const ctx = canvas1.getContext('2d');
+                    ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+                    // Draw axes
+                    ctx.strokeStyle = '#888';
+                    ctx.beginPath();
+                    ctx.moveTo(40, 180); ctx.lineTo(40, 20); // y-axis
+                    ctx.moveTo(20, 160); ctx.lineTo(300, 160); // x-axis
+                    ctx.stroke();
+                    // Draw line x = 5
+                    ctx.strokeStyle = '#0078d7';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    let px = 5 * 13 + 130; // x = 5
+                    ctx.moveTo(40 + px, 20);
+                    ctx.lineTo(40 + px, 180);
+                    ctx.stroke();
+                }
+            </script>
+</body>
+</html>
